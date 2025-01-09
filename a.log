@@ -1,0 +1,19 @@
+# 
+Quistion: 2+22
+indexOfOperator: 1
+OPenINdex: 18Close INdex: 23
+DELETED QUISTION: (5+5*88+24*(55+55+      ))
+NEW QUISTION: (5+5*88+24*(55+55+24      ))
+Quistion: 55+55+24
+indexOfOperator: 2
+indexOfOperator: 3
+OPenINdex: 11Close INdex: 26
+DELETED QUISTION: (5+5*88+24*                )
+NEW QUISTION: (5+5*88+24*134                )
+Quistion: 5+5*88+24*134
+indexOfOperator: 3
+indexOfOperator: 6
+OPenINdex: 0Close INdex: 30
+DELETED QUISTION:                                
+NEW QUISTION: 72899216                               
+result: 72899216                               

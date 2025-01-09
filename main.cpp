@@ -17,46 +17,7 @@
 
 using namespace std;
 
-string deleteParaantez(string input)
-{
-    int openPaIndex = -1;
-    int closePaIndex = -1;
-    for(size_t i=0; i<strlen(input.c_str()); i++)
-    {
-        if(input[i] == '(')
-        {
-            openPaIndex = i;
-        }
-        else if(input[i] == ')')
-        {
-            if(openPaIndex == -1) // if First Close // raise Error
-            { 
-                cout << "Parantez Error (?)" << endl;
-                return "err";
-            }
-            else{
-                closePaIndex = i;   //save Close Index
-                break;
-            }
-        }
-    }
-
-    // now avilable start and end (Parantez), now Get Math String
-
-    string Result;
-    for(size_t a=openPaIndex+1;a<closePaIndex; a++) // Get Quistion, NON Paraantez()
-    {
-        if(input[a] == ' ') //Delete EMPTY Index
-        {
-            continue;
-        }
-        Result += input[a];
-    }
-
-    return Result;
-}
-
-
+string math(string);
 
 bool is_Quistion(string a)
 {
@@ -70,6 +31,80 @@ bool is_Quistion(string a)
 
     return false;
 }
+
+
+string deleteParaantez(string input)
+{
+    string Result = input;  // only First Result == input
+
+    while (is_Quistion(Result))
+    {
+        int openPaIndex = -1;
+        int closePaIndex = -1;
+
+        for(size_t a=0; a < strlen(Result.c_str()); a++) //Delete Empty Index
+        {
+            if(input[a] == ' ')
+            {
+                continue;
+            }
+        }
+
+        for(size_t i=0; i<strlen(Result.c_str()); i++)   // Get Open -AND- Close Index 
+        {
+            if(Result[i] == '(')
+            {
+                openPaIndex = i;
+            }
+            else if(Result[i] == ')')
+            {
+                if(openPaIndex == -1) // if First Close // raise Error
+                { 
+                    cout << "Parantez Error: First Open Pls ?)" << endl;
+                    exit(1);
+                    
+                }
+                else{
+                    closePaIndex = i;   //save Close Index
+                    break;
+                }
+            }
+        }
+
+
+        
+        string paraantezTMP = "";
+        for(size_t a=openPaIndex+1; a<closePaIndex; a++) // Get Quistion
+        {
+            paraantezTMP += Result[a];
+        }
+
+        paraantezTMP = math(paraantezTMP);  //Calculate
+
+
+        for(size_t a=openPaIndex; a<=closePaIndex; a++) //  Delete Paraantez Quistion
+        {
+            Result[a] = ' ';
+        }
+
+        cout << "OPenINdex: " << openPaIndex  << "Close INdex: " << closePaIndex <<  endl;
+        cout << "DELETED QUISTION: " << Result << endl;
+
+        Result.insert(openPaIndex, paraantezTMP);   //Placement Result to Quistion, for create new quistion
+
+        cout << "NEW QUISTION: " << Result << endl;
+        
+        
+
+    }
+    
+   
+
+
+
+    return Result;
+}
+
 
 
 string math(string QuistionInput)
@@ -175,9 +210,6 @@ string math(string QuistionInput)
 
             }
 
-            cout << "Start: " << startQuistionIndex << endl; 
-            cout << "End: " << endQuistionIndex << endl; 
-                
 
             ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -205,19 +237,19 @@ string math(string QuistionInput)
             string result;
             if(operatorSym == '*')
                     {
-                        result = to_string(multiplication(stoi(x), stoi(y)));
+                        result = to_string(stoi(x) * stoi(y));
                     }
             else if(operatorSym == '/')
                     {
-                        result =  stoi(x) / stoi(y);
+                        result =  to_string(stoi(x) / stoi(y));
                     }
             else if(operatorSym == '+')
                     {
-                        result =  stoi(x) + stoi(y);
+                        result =  to_string(stoi(x) + stoi(y));
                     }
             else if(operatorSym == '-')
                     {
-                        result =  stoi(x) - stoi(y);
+                        result =  to_string(stoi(x) - stoi(y));
                     }
             else
                     {
@@ -226,15 +258,19 @@ string math(string QuistionInput)
                     } 
             
 
-            cout << "X: " << x << endl << "Y: " << y << endl;
-            cout << "Debugs Result: " << stoi(x) +  stoi(y) << endl;
             
             nonParaantez.erase(startQuistionIndex, endQuistionIndex);
 
             nonParaantez.insert(startQuistionIndex, result);
 
-            cout << "\033[5;32mResultTMP: " << result << "\033[0m" <<  endl;
-            cout << "\033[5;32mFULLResult: " << nonParaantez << "\033[0m" <<  endl;
+            // cout << "X: " << x << endl << "Y: " << y << endl;
+            // cout << "Debugs Result: " << stoi(x) +  stoi(y) << endl;
+
+            // cout << "Start: " << startQuistionIndex << endl; 
+            // cout << "End: " << endQuistionIndex << endl; 
+
+            // cout << "\033[5;32mResultTMP: " << result << "\033[0m" <<  endl;
+            // cout << "\033[5;32mFULLResult: " << nonParaantez << "\033[0m" <<  endl;
 
 
         }
@@ -244,33 +280,35 @@ string math(string QuistionInput)
 
 bool cal(string User_quistion)
 {
-    string nonParaanteze = User_quistion;   //Get Quistion Paraantez
-    while(is_Quistion(nonParaanteze))
+    string quistion = User_quistion;   //Get Quistion Paraantez
+
+    while(is_Quistion(quistion))
     {
-        if(User_quistion.find("(") >= 1844674407370900000)  // if open Paraantez Not found
+        if(User_quistion.find("(") == string::npos)  // if open Paraantez Not found
         {
-            if(User_quistion.find(")") <= 1844674407370900000)
+            if(User_quistion.find(")") != string::npos)  // if close Paraantez avilable
             {
                 cout << "Sintax Error: Paraantez Error ?)" <<endl;
                 return false;
             }
             else    // iF All Parantez Not Found
             {
-                math(User_quistion);
-                cout << "End Prosess" << endl;
+                string result = math(User_quistion);
+                cout << "End Prosess: " << result << endl;
                 break;
             }
         }
-        else
-        {   // If Paraantez Is Found
-            if(User_quistion.find(")") <= 1844674407370900000)  //Check INCOMPLATE , open not found but close found
+        else    // If open Paraantez Exist
+        {   // If Close Paraantez Is Found
+            if(User_quistion.find(")") == string::npos)  //Check INCOMPLATE , open not found but close found
             {
                 cout << "Sintax Error: Paraantez not found ?)" << endl;
                 return false;
             }
             else    // Prosess Paraantez
             {
-                //coming Soon
+                string RESULT = deleteParaantez(User_quistion);
+                cout << "result: " << RESULT << endl;
                 return true;
             }
         }

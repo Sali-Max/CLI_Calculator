@@ -56,16 +56,6 @@ string deleteParaantez(string input)
     return Result;
 }
 
-int plus(int a, int b)
-{
-    return a + b;
-}
-
-int multiplication(int a, int b)
-{
-    return a * b;
-}
-
 
 
 bool is_Quistion(string a)

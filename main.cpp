@@ -1,23 +1,109 @@
 #include<iostream>
 #include<string>
 #include<cstring>
-#include<vector>
 
-// // if Quistion is Bad Sintax Ex: a+(*-+)
-//         if(nonParaantez[indexOf -1] == '*' || nonParaantez[indexOf -1] == '/' || nonParaantez[indexOf -1] == '*' || nonParaantez[indexOf -1] == '-') 
-//         {
-//             cout << "\033[5;31mSintax Error" << endl;
-//             return false;
-//         }
-//         else if (nonParaantez[indexOf +1] == '*' || nonParaantez[indexOf +1] == '/' || nonParaantez[indexOf +1] == '*' || nonParaantez[indexOf +1] == '-')
-//         {
-//             cout << "\033[5;31mSintax Error" << endl;
-//             return false;
-//         }
+
 
 using namespace std;
+bool is_Quistion(string a);
 
-string math(string);
+string math(string Fullquistion)
+{
+    string quistion = Fullquistion;
+    while (is_Quistion(quistion))
+    {   
+        int operatorIndex = -1 ;
+        int StartIndex = -1;
+        int EndIndex = -1;
+
+        for(size_t aa=0; aa < 2; aa++)  //Get Operator
+        {
+            for(size_t i=0; i<strlen(quistion.c_str()); i++)
+            {
+                if(aa == 0)
+                {
+                    if(quistion[i] == '*')
+                    {
+                        operatorIndex = i;
+                        break;
+                    }
+                    if(quistion[i] == '/')
+                    {
+                        operatorIndex = i;
+                        break;
+                    }
+                }
+
+                else if (aa == 1)
+                {
+                    if(quistion[i] == '+')
+                    {
+                        operatorIndex = i;
+                        break;
+                    }
+                    if(quistion[i] == '-')
+                    {
+                        operatorIndex = i;
+                        break;
+                    }
+                }
+            }
+            if(operatorIndex != -1) // if get Index Number, close for
+            {
+                break;
+            }
+        }
+        
+        cout << "OperatorIndex = " << operatorIndex << endl;
+        
+        // Get X AND Y Range
+
+        for (size_t cycle = 1; cycle <= strlen(quistion.c_str()); cycle++)
+        {
+            if(quistion[operatorIndex - cycle] == '+' || quistion[operatorIndex - cycle] == '*' || operatorIndex - cycle == 0)  //Get X Range
+            {
+                if(operatorIndex - cycle == 0)
+                {
+                    StartIndex = 0;
+                    break;
+                }
+                else
+                {
+                    StartIndex = (operatorIndex - cycle) + 1;
+                    break;
+                }
+            }
+        }
+
+        for (size_t cycle = 1; cycle <= strlen(quistion.c_str()); cycle++)
+        {
+            if(operatorIndex + cycle == strlen(quistion.c_str()) - 1 || quistion[operatorIndex + cycle] == '+' || quistion[operatorIndex + cycle] == '*')
+            { 
+                if(operatorIndex + cycle == strlen(quistion.c_str()) - 1)
+                {
+                    EndIndex = strlen(quistion.c_str()) - 1;
+                    break;
+                }
+                else
+                {
+                    EndIndex = (operatorIndex + cycle) - 1;
+                    break;
+                }
+
+            }
+
+            // cout << "LenQuistion: " << strlen(quistion.c_str() ) - 1 << endl << endl;
+            // cout << "OI: " << operatorIndex + cycle << endl;
+        }
+        
+
+        cout << "Start: " << StartIndex << endl;
+        cout << "End: " << EndIndex << endl;
+        break;
+        
+    }
+    return quistion;
+}
 
 bool is_Quistion(string a)
 {
@@ -105,178 +191,6 @@ string deleteParaantez(string input)
     return Result;
 }
 
-
-
-string math(string QuistionInput)
-{
-
-    string nonParaantez;
-    for(size_t u=0; u < strlen(QuistionInput.c_str()); u++) // Delete Empty Index
-    {
-        if(QuistionInput[u] == ' ')
-        {
-            continue;
-        }
-        else
-        {
-            nonParaantez += QuistionInput[u];
-        }
-    }
-
-    cout << "Quistion: " <<nonParaantez << endl;
-
-    while (is_Quistion(nonParaantez))
-    {
-
-        
-        string x,y;
-        char operatorSym;
-        int startQuistionIndex = -1;
-        int endQuistionIndex = -1;
-        int indexOf = -1;
-        for (size_t op = 0; op < 2; op++)   // Dected OPERATOR Index
-        {
-            
-            for (size_t i = 0; i < strlen(nonParaantez.c_str()); i++)   // For All String
-            {
-                if(op == 0) // First * /
-                {
-                    if(nonParaantez[i] == '*')
-                    {
-                        operatorSym = '*';
-                        indexOf = i;
-                        break;
-                    }
-                    else if(nonParaantez[i] == '%')
-                    {
-                        operatorSym = '%';
-                        indexOf = i;
-                        break;
-                    }
-                }
-                if(op == 1) 
-                {
-                    if(nonParaantez[i] == '+')
-                    {
-                        operatorSym = '+';
-                        indexOf = i;
-                        break;
-                    }
-                    else if(nonParaantez[i] == '-')
-                    {
-                        operatorSym = '-';
-                        indexOf = i;
-                        break;
-                    }
-                }
-                
-            }
-            if(indexOf != -1)   // IF sucsessfully to get IndexOf OPERATOR
-            {
-                break;
-            }
-
-            if(op == 3 && indexOf == -1)// operator Not Found
-            {
-                cout << "Sintax Error: Operator Can not Dected" << endl;
-                exit(1);
-            }
-        }
-
-
-        cout << "indexOfOperator: " << indexOf << endl;
-        
-        for(size_t i=1; i <= strlen(nonParaantez.c_str()); i++) // get x and y arg Range
-            {
-
-                if(nonParaantez[indexOf - i] == '*' || nonParaantez[indexOf - i] == '/' || nonParaantez[indexOf - i] == '+' || nonParaantez[indexOf - i] == '-' || (indexOf - i) == 0)
-                {
-                    if(startQuistionIndex == -1)
-                    {
-                        startQuistionIndex = indexOf - i;
-
-                    }
-                }
-
-                if(nonParaantez[indexOf + i] == '*' || nonParaantez[indexOf + i] == '/' || nonParaantez[indexOf + i] == '+' || nonParaantez[indexOf + i] == '-' || (indexOf + i) == strlen(nonParaantez.c_str()) )
-                {
-                    if(endQuistionIndex == -1)
-                    {
-                        endQuistionIndex = indexOf + i;
-                    }
-
-                }
-
-
-            }
-
-
-            ////////////////////////////////////////////////////////////////////////////////////////////
-
-        if(startQuistionIndex == -1 || endQuistionIndex == -1 ) // IF Fill start and end index is Fail
-        {
-            cout << "Start OR End Index Dected Fail" << endl;
-            break;
-        }
-        else // if fill is SUCSESSFULL
-        {
-            string x = "";
-            for (size_t i = startQuistionIndex; i < indexOf; i++)   //Get X With Range, Filter Operator
-                {
-                    x += nonParaantez[i];
-                }
-
-            string y = "";
-            for(size_t o=indexOf + 1; o < endQuistionIndex; o++)// Get Y With Range 
-                {
-                    y += nonParaantez[o];
-                    
-                }     
-                ////////////////////////////////////////////////////////////////////////////////////////
-
-            string result;
-            if(operatorSym == '*')
-                    {
-                        result = to_string(stoi(x) * stoi(y));
-                    }
-            else if(operatorSym == '/')
-                    {
-                        result =  to_string(stoi(x) / stoi(y));
-                    }
-            else if(operatorSym == '+')
-                    {
-                        result =  to_string(stoi(x) + stoi(y));
-                    }
-            else if(operatorSym == '-')
-                    {
-                        result =  to_string(stoi(x) - stoi(y));
-                    }
-            else
-                    {
-                        cout << "Not Quistion" << endl;
-                        return 0;
-                    } 
-            
-
-            
-            nonParaantez.erase(startQuistionIndex, endQuistionIndex);
-
-            nonParaantez.insert(startQuistionIndex, result);
-
-            // cout << "X: " << x << endl << "Y: " << y << endl;
-            // cout << "Debugs Result: " << stoi(x) +  stoi(y) << endl;
-
-            // cout << "Start: " << startQuistionIndex << endl; 
-            // cout << "End: " << endQuistionIndex << endl; 
-
-            // cout << "\033[5;32mResultTMP: " << result << "\033[0m" <<  endl;
-            // cout << "\033[5;32mFULLResult: " << nonParaantez << "\033[0m" <<  endl;
-
-
-        }
-    }
-    return nonParaantez;
-}
 
 bool cal(string User_quistion)
 {

@@ -5,6 +5,8 @@
 #include<cmath>
 
 using namespace std;
+
+
 bool is_Quistion(string a);
 
 string math(string Fullquistion)
@@ -172,7 +174,6 @@ bool avilableParaantez(string text)
     }
 }
 
-
 string deleteParaantez(string input)
 {
     string Result = input;  // only First Result == input
@@ -253,11 +254,17 @@ string deleteParaantez(string input)
     return Result;
 }
 
-
 bool cal(string User_quistion)
 {
-    string quistion = User_quistion;   //Get Quistion Paraantez
-
+    string quistion = User_quistion;   // Updatable quistion
+    if(!is_Quistion(quistion))
+    {
+        #ifdef _WIN32
+            cout << "Result: " << quistion << endl;
+        #else
+            cout << "\033[5;32mResult: " << quistion << "\033[0m" << endl;
+        #endif
+    }
     while(is_Quistion(quistion))
     {
         if(User_quistion.find("(") == string::npos)  // if open Paraantez Not found
@@ -270,7 +277,13 @@ bool cal(string User_quistion)
             else    // iF All Parantez Not Found
             {
                 string result = math(User_quistion);
-                cout << "Result: " << result << endl;
+
+                #ifdef _WIN32
+                    cout << "Result: " << result << endl;
+                #else
+                    cout << "\033[5;32mResult: " << result << "\033[0m" << endl;
+                #endif
+                
                 break;
             }
         }
@@ -284,7 +297,14 @@ bool cal(string User_quistion)
             else    // Prosess Paraantez
             {
                 string RESULT = deleteParaantez(User_quistion);
-                cout << "Result: " << RESULT << endl;
+
+                #ifdef _WIN32
+                    cout << "Result: " << RESULT << endl;
+                #else
+                    cout << "\033[5;32mResult: " << RESULT << "\033[0m" << endl;
+                #endif
+
+
                 return true;
             }
         }
@@ -296,6 +316,50 @@ bool cal(string User_quistion)
 
     
 }
+
+string FixBackParaantezOperator(string txt)
+{   
+    string text = txt;
+    if(text.find('(') == string::npos) //Paraantez is Not Found
+    {
+        return text;
+    }
+    else   //Paraantez Exist
+    {
+        for(size_t i=0; i < strlen(text.c_str()); i++)
+        {
+            if(i > 0)   // FIX text[-1] code, fix
+            {
+                if(text[i] == '(')
+                {
+                    if(text[i - 1] == '(' || text[i - 1] == '*' || text[i - 1] == '/' || text[i - 1] == '+' || text[i - 1] == '-')
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        text.insert(i, "*");
+                    }
+                }
+            }
+            if(text[i] == ')')
+            {
+                if(text[i + 1] == ')' || text[i + 1] == '*' || text[i + 1] == '/' || text[i + 1] == '+' || text[i + 1] == '-' || strlen(text.c_str()) - 1 == i)
+                {
+                    continue;
+                }
+                else
+                {
+                    text.insert(i + 1, "*");
+                }
+
+            }
+            // cout << "In Loop: "<< text << endl;
+        }
+        return  text;
+    }
+}
+
 
 double tanCal(string text)
 {
@@ -312,6 +376,7 @@ double cosCal(string text)
     return cos(stoi(text));
 }
 
+
 int main()
 {
     string userInput;
@@ -324,7 +389,7 @@ int main()
         cout << "1-tan" << endl;
         cout << "2-sin" << endl;
         cout << "3-cos" << endl;
-        cout << "OR Type Math Quistion 3+(2*2)+5" << endl;
+        cout << "OR Type Math Quistion EX: 1(2+2)" << endl;
         cout << "-------------------------------" << endl;
 
         cout << "# ";
@@ -332,11 +397,11 @@ int main()
         cout << endl;
 
         
-        if (userInput == "0")
+        if (userInput == "0") //exit
         {
             exit(0);
         }
-        else if(userInput == "1")
+        else if(userInput == "1")   // tan
         {
             cout << "tan-# ";
             getline(cin, userInput);
@@ -352,7 +417,7 @@ int main()
 
             
         }
-        else if(userInput == "2")
+        else if(userInput == "2")   //Sin
         {
             cout << "Sin-# ";
             getline(cin, userInput);
@@ -367,14 +432,14 @@ int main()
             #endif
 
         }
-        else if(userInput == "3")
+        else if(userInput == "3") // Cos
         {
             cout << "Cos-# ";
             getline(cin, userInput);
             cout << endl;
 
             cout << "-------------------------------" << endl;
-            
+
             #ifdef _WIN32
                 cout << "Cos Result:" << cosCal(userInput) << endl;
             #else
@@ -384,8 +449,9 @@ int main()
             
 
         }
-        else
+        else    // More Calculate
         {
+            userInput = FixBackParaantezOperator(userInput);
             cal(userInput);
         }
     

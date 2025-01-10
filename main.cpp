@@ -117,7 +117,19 @@ string math(string Fullquistion)
             }
             else if(quistion[operatorIndex] == '/')
             {
-                resultTMP = to_string(stoi(x) / stoi(y));
+                if(stoi(y) == 0)
+                {
+                    #ifdef _WIN32
+                        cout << "Error: Can Not Division By Zero" << endl;
+                    #else
+                        cout << "\033[5;31mError: Can Not Division By Zero\033[0m" << endl;
+                    #endif
+                    exit(1);
+                }
+                else 
+                {
+                    resultTMP = to_string(stoi(x) / stoi(y));
+                }
             }
             else if(quistion[operatorIndex] == '+')
             {

@@ -2,7 +2,7 @@
 #include<string>
 #include<cstring>
 
-
+#include <algorithm>
 
 using namespace std;
 bool is_Quistion(string a);
@@ -56,11 +56,10 @@ string math(string Fullquistion)
         
         cout << "OperatorIndex = " << operatorIndex << endl;
         
-        // Get X AND Y Range
-
+        // Get Range
         for (size_t cycle = 1; cycle <= strlen(quistion.c_str()); cycle++)
         {
-            if(quistion[operatorIndex - cycle] == '+' || quistion[operatorIndex - cycle] == '*' || operatorIndex - cycle == 0)  //Get X Range
+            if(quistion[operatorIndex - cycle] == '+' || quistion[operatorIndex - cycle] == '-' || quistion[operatorIndex - cycle] == '*' || quistion[operatorIndex - cycle] == '/' || operatorIndex - cycle == 0)  //Get X Range
             {
                 if(operatorIndex - cycle == 0)
                 {
@@ -77,7 +76,7 @@ string math(string Fullquistion)
 
         for (size_t cycle = 1; cycle <= strlen(quistion.c_str()); cycle++)
         {
-            if(operatorIndex + cycle == strlen(quistion.c_str()) - 1 || quistion[operatorIndex + cycle] == '+' || quistion[operatorIndex + cycle] == '*')
+            if(operatorIndex + cycle == strlen(quistion.c_str()) - 1 || quistion[operatorIndex + cycle] == '+' || quistion[operatorIndex + cycle] == '-' || quistion[operatorIndex + cycle] == '*' || quistion[operatorIndex + cycle] == '/')
             { 
                 if(operatorIndex + cycle == strlen(quistion.c_str()) - 1)
                 {
@@ -96,12 +95,56 @@ string math(string Fullquistion)
             // cout << "OI: " << operatorIndex + cycle << endl;
         }
         
+        //Get X and Y
+        string x="";
+        for(size_t cycle = StartIndex; cycle < operatorIndex; cycle++)
+        {
+            x+=quistion[cycle];
+        }
+        string y="";
+        for(size_t cycle = operatorIndex + 1; cycle <= EndIndex; cycle++)
+        {
+            y+=quistion[cycle];
+        }
 
-        cout << "Start: " << StartIndex << endl;
-        cout << "End: " << EndIndex << endl;
-        break;
+        string resultTMP = "";
+        {   //calculat
+            if(quistion[operatorIndex] == '*')
+            {
+                resultTMP = to_string(stoi(x) * stoi(y));
+            }
+            else if(quistion[operatorIndex] == '/')
+            {
+                resultTMP = to_string(stoi(x) / stoi(y));
+            }
+            else if(quistion[operatorIndex] == '+')
+            {
+                resultTMP = to_string(stoi(x) + stoi(y));
+            }
+            else if(quistion[operatorIndex] == '-')
+            {
+                resultTMP = to_string(stoi(x) - stoi(y));
+            }
+        }
+
+        quistion.insert(EndIndex + 1, resultTMP);
+
+        for(size_t i=0; i < strlen(quistion.c_str()); i++)  //Delete Old Quistion
+        {
+            if(i >= StartIndex && i <= EndIndex)
+            {
+                quistion[i] = ' ';
+            }
+        }
+
+        
+        quistion.erase(std::remove(quistion.begin(), quistion.end(), ' '), quistion.end());    //Delete Free Space
+
+        
         
     }
+    
+    cout << "Return result Math Sucsessfull: " << quistion << endl;
     return quistion;
 }
 

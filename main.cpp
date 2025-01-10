@@ -372,6 +372,21 @@ string FixBackParaantezOperator(string txt)
     }
 }
 
+void towOperatorBlock(string text) //2++2
+{
+    for (size_t i = 0; i < strlen(text.c_str()); i++)
+    {
+        if(text[i] == '*' || text[i] == '/' || text[i] == '+' || text[i] == '-')
+        {
+            if(text[i + 1 ] == '*' || text[i + 1] == '/' || text[i + 1] == '+' || text[i + 1] == '-' || text[i - 1 ] == '*' || text[i - 1] == '/' || text[i - 1] == '+' || text[i - 1] == '-')
+            {
+                cout << "Error: Two operator ?? " << endl;
+                exit(1);
+            }
+        }
+    }
+    
+}
 
 double tanCal(string text)
 {
@@ -463,6 +478,7 @@ int main()
         }
         else    // More Calculate
         {
+            towOperatorBlock(userInput);
             userInput = FixBackParaantezOperator(userInput);
             cal(userInput);
         }

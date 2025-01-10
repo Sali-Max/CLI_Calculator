@@ -1,7 +1,6 @@
 #include<iostream>
 #include<string>
 #include<cstring>
-
 #include <algorithm>
 
 using namespace std;
@@ -54,7 +53,7 @@ string math(string Fullquistion)
             }
         }
         
-        cout << "OperatorIndex = " << operatorIndex << endl;
+        // cout << "OperatorIndex = " << operatorIndex << endl;
         
         // Get Range
         for (size_t cycle = 1; cycle <= strlen(quistion.c_str()); cycle++)
@@ -141,10 +140,9 @@ string math(string Fullquistion)
         quistion.erase(std::remove(quistion.begin(), quistion.end(), ' '), quistion.end());    //Delete Free Space
 
         
-        
     }
-    
-    cout << "Return result Math Sucsessfull: " << quistion << endl;
+
+    // cout << "Return result Math Sucsessfull: " << quistion << endl;
     return quistion;
 }
 
@@ -161,23 +159,37 @@ bool is_Quistion(string a)
     return false;
 }
 
+bool avilableParaantez(string text)
+{
+    if(text.find('(') == string::npos) // if paraantez is not avilabe
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 
 string deleteParaantez(string input)
 {
     string Result = input;  // only First Result == input
-
+    
+    
     while (is_Quistion(Result))
     {
+        if(avilableParaantez(Result) == false)
+        {
+            break;
+        }
+
         int openPaIndex = -1;
         int closePaIndex = -1;
 
-        for(size_t a=0; a < strlen(Result.c_str()); a++) //Delete Empty Index
-        {
-            if(input[a] == ' ')
-            {
-                continue;
-            }
-        }
+        Result.erase(remove(Result.begin(), Result.end(), ' '), Result.end());
+
+        cout << "start Cal this: " << Result << endl;
 
         for(size_t i=0; i<strlen(Result.c_str()); i++)   // Get Open -AND- Close Index 
         {
@@ -207,7 +219,8 @@ string deleteParaantez(string input)
         {
             paraantezTMP += Result[a];
         }
-
+        
+        cout << "In Parantez go to cal: " << paraantezTMP << endl;
         paraantezTMP = math(paraantezTMP);  //Calculate
 
 
@@ -216,20 +229,25 @@ string deleteParaantez(string input)
             Result[a] = ' ';
         }
 
-        cout << "OPenINdex: " << openPaIndex  << "Close INdex: " << closePaIndex <<  endl;
-        cout << "DELETED QUISTION: " << Result << endl;
+        // cout << "Open: " << openPaIndex << endl;
+        // cout << "Close" << closePaIndex << endl;
+
 
         Result.insert(openPaIndex, paraantezTMP);   //Placement Result to Quistion, for create new quistion
 
-        cout << "NEW QUISTION: " << Result << endl;
+        // cout << "NEW QUISTION Generated: " << Result << endl;
         
         
 
     }
     
+    if(!avilableParaantez(Result) && is_Quistion(Result))
+    {
+        Result = math(Result);
+    }
    
 
-
+    
 
     return Result;
 }
@@ -251,7 +269,7 @@ bool cal(string User_quistion)
             else    // iF All Parantez Not Found
             {
                 string result = math(User_quistion);
-                cout << "End Prosess: " << result << endl;
+                cout << "Result: " << result << endl;
                 break;
             }
         }
@@ -265,7 +283,7 @@ bool cal(string User_quistion)
             else    // Prosess Paraantez
             {
                 string RESULT = deleteParaantez(User_quistion);
-                cout << "result: " << RESULT << endl;
+                cout << "Result: " << RESULT << endl;
                 return true;
             }
         }

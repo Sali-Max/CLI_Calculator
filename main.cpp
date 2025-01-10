@@ -2,6 +2,7 @@
 #include<string>
 #include<cstring>
 #include <algorithm>
+#include<cmath>
 
 using namespace std;
 bool is_Quistion(string a);
@@ -296,15 +297,100 @@ bool cal(string User_quistion)
     
 }
 
+double tanCal(string text)
+{
+    return tan(stoi(text));
+}
+
+double sinCal(string text)
+{
+    return sin(stoi(text));
+}
+
+double cosCal(string text)
+{
+    return cos(stoi(text));
+}
 
 int main()
 {
     string userInput;
-    cout << "# ";
-    getline(cin, userInput);
-    cout << endl;
+    cout << "Welcome To CCC (CLI Calculator)" << endl;
+    while (true)
+    {
+        
+        cout << "-------------------------------" << endl;
+        cout << "0-Exit" << endl;
+        cout << "1-tan" << endl;
+        cout << "2-sin" << endl;
+        cout << "3-cos" << endl;
+        cout << "OR Type Math Quistion 3+(2*2)+5" << endl;
+        cout << "-------------------------------" << endl;
 
-    cal(userInput);
+        cout << "# ";
+        getline(cin, userInput);
+        cout << endl;
+
+        
+        if (userInput == "0")
+        {
+            exit(0);
+        }
+        else if(userInput == "1")
+        {
+            cout << "tan-# ";
+            getline(cin, userInput);
+            cout << endl;
+
+            cout << "-------------------------------" << endl;
+            
+            #ifdef _WIN32
+                cout << "tan Result:" << tanCal(userInput) << endl;
+            #else
+                cout << "\033[5;33mtan Result:" << tanCal(userInput)  << "\033[0m" << endl;
+            #endif
+
+            
+        }
+        else if(userInput == "2")
+        {
+            cout << "Sin-# ";
+            getline(cin, userInput);
+            cout << endl;
+
+            cout << "-------------------------------" << endl;
+
+            #ifdef _WIN32
+                cout << "sin Result:" << sinCal(userInput) << endl;
+            #else
+                cout << "\033[5;33msin Result:" << sinCal(userInput)  << "\033[0m" << endl;
+            #endif
+
+        }
+        else if(userInput == "3")
+        {
+            cout << "Cos-# ";
+            getline(cin, userInput);
+            cout << endl;
+
+            cout << "-------------------------------" << endl;
+            
+            #ifdef _WIN32
+                cout << "Cos Result:" << cosCal(userInput) << endl;
+            #else
+                cout << "\033[5;33mCos Result:" << cosCal(userInput)  << "\033[0m" << endl;
+            #endif
+
+            
+
+        }
+        else
+        {
+            cal(userInput);
+        }
+    
+
+    }
     
 
 }

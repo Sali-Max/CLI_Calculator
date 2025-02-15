@@ -16,10 +16,11 @@ It supports basic arithmetic operations and parentheses for complex expressions.
 
 
 ## 🚀 How to Use
-<br>
 1️⃣ Clone Project 🔹
 ```bash
 git clone https://github.com/Sali-Max/CPP_CLI_Calculator.git
+```
+```bash
 cd CPP_CLI_Calculator
 ```
 2️⃣ Compile ⚙️

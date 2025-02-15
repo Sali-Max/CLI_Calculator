@@ -17,7 +17,7 @@ It supports basic arithmetic operations and parentheses for complex expressions.
 
 1️⃣ Clone Project 🔹
 ```bash
-git clone https://github.com/YourUsername/CPP_CLI_Calculator.git
+git clone https://github.com/Sali-Max/CPP_CLI_Calculator.git
 cd CPP_CLI_Calculator
 ```
 2️⃣ Compile ⚙️

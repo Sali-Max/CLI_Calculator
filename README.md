@@ -2,7 +2,6 @@
 A **lightweight and efficient console-based calculator** built using **C++/CLI**.  
 It supports **basic arithmetic operations**, **parentheses for complex expressions**, and **string-based input processing**.  
 
-📌 **Perfect for quick calculations in the command line!**  
 
 ---
 

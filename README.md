@@ -40,20 +40,3 @@ g++ main.cpp -o calculator
 
 **🛠 Workaround**  
 ➡ **Always include an operator after a closing parenthesis** to avoid errors.  
-
----
-
-## 🤝 Contributing  
-We welcome contributions! If you’d like to improve this project, feel free to:  
-- Fork the repository  
-- Submit pull requests  
-- Report issues  
-
-📩 **Have suggestions?** Open an [Issue](https://github.com/Sali-Max/CPP_CLI_Calculator/issues).  
-
----
-
-## 📜 License  
-This project is licensed under the [MIT License](LICENSE).  
-
-📌 **Created by [Sali-Max](https://github.com/Sali-Max)**  

@@ -1,4 +1,5 @@
-**CPP_CLI_Calculator** <br>
+<h1>CPP_CLI_Calculator</hr>
+<br>
 CPP_CLI_Calculator is a simple console-based calculator built using C++/CLI.  
 It supports basic arithmetic operations and parentheses for complex expressions.  
 

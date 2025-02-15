@@ -7,14 +7,14 @@ It supports basic arithmetic operations and parentheses for complex expressions.
 ✔️ Supports addition (+), subtraction (-), multiplication (*), and division (/)  
 ✔️ Handles parentheses for order of operations  
 ✔️ Processes input as a string  
+<br>
+<br>
 
 
 
 
 
-
-**🚀 How to Use**
-
+**🚀 How to Use**<br>
 1️⃣ Clone Project 🔹
 ```bash
 git clone https://github.com/Sali-Max/CPP_CLI_Calculator.git
@@ -28,7 +28,8 @@ g++ main.cpp
 ```bash
 ./a.out
 ```
-
+<br>
+<br>
 
 
 

@@ -2,12 +2,17 @@
 CPP_CLI_Calculator is a simple console-based calculator built using C++/CLI.  
 It supports basic arithmetic operations and parentheses for complex expressions.  
 
+
 **Features**  
 ✔️ Supports addition (+), subtraction (-), multiplication (*), and division (/)  
 ✔️ Handles parentheses for order of operations  
 ✔️ Processes input as a string  
 
+
+
+
 **🚀 How to Use**
+
 1️⃣ Clone Project 🔹
 ```bash
 git clone https://github.com/YourUsername/CPP_CLI_Calculator.git
@@ -21,6 +26,7 @@ g++ main.cpp
 ```bash
 ./a.out
 ```
+
 
 
 **⚠️ Known Bug**

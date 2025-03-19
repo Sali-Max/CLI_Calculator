@@ -1,4 +1,4 @@
-# 🔢 CPP CLI Calculator  
+# 🔢 CLI Calculator  
 A **lightweight and efficient console-based calculator** built using **C++/CLI**.  
 It supports **basic arithmetic operations**, **parentheses for complex expressions**, and **string-based input processing**.  
 
@@ -15,7 +15,7 @@ It supports **basic arithmetic operations**, **parentheses for complex expressio
 ## 🚀 How to Use  
 1️⃣ **Clone the Repository** 🔹  
 ```bash
-git clone https://github.com/Sali-Max/CPP_CLI_Calculator.git
+git clone https://github.com/Sali-Max/CLI_Calculator.git
 cd CPP_CLI_Calculator
 ```
 2️⃣ **Compile the Code** ⚙️  
@@ -27,7 +27,7 @@ g++ main.cpp -o calculator
 ./calculator
 ```
 
-📌 **[Download Precompiled Versions Here](https://github.com/Sali-Max/CPP_CLI_Calculator/releases)** (if available).  
+📌 **[Download Precompiled Versions Here](https://github.com/Sali-Max/CLI_Calculator/releases)**  
 
 ---
 

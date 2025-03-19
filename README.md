@@ -27,8 +27,6 @@ g++ main.cpp -o calculator
 ./calculator
 ```
 
-📌 **[Download Precompiled Versions Here](https://github.com/Sali-Max/CLI_Calculator/releases)**  
-
 ---
 
 ## ⚠️ Known Issues & Workaround  
